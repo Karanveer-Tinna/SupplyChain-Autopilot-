@@ -10,7 +10,7 @@ services:
   # 1. CrewAI A2A Service
   - type: web
     name: supplychain-crewai-service
-    env: python
+    runtime: python
     region: oregon
     plan: free
     buildCommand: pip install uv && uv pip install --python "$(which python)" -e packages/contracts -r requirements.txt
@@ -30,7 +30,7 @@ services:
   # 2. FastAPI Backend & ADK Orchestrator
   - type: web
     name: supplychain-backend
-    env: python
+    runtime: python
     region: oregon
     plan: free
     buildCommand: pip install uv && uv pip install --python "$(which python)" -e packages/contracts -r requirements.txt
@@ -53,13 +53,12 @@ services:
         sync: false
 
   # 3. React 18 Frontend Management Dashboard
-  - type: static
+  - type: web
     name: supplychain-frontend
+    runtime: static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: ./frontend/dist
     envVars:
-      - key: NODE_VERSION
-        value: 20.18.0
       - key: VITE_API_BASE_URL
         fromService:
           name: supplychain-backend
