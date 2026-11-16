@@ -1,6 +1,11 @@
 import { InventoryItem, WorkflowDetails, BenchmarkSummary, SupplierItem } from './types';
 
-const BASE_URL = '/api';
+const rawBase = (import.meta.env.VITE_API_BASE_URL as string | undefined) || '/api';
+const BASE_URL = rawBase.endsWith('/api')
+  ? rawBase
+  : rawBase.startsWith('http')
+  ? `${rawBase.replace(/\/+$/, '')}/api`
+  : rawBase;
 
 export async function fetchInventory(): Promise<InventoryItem[]> {
   const res = await fetch(`${BASE_URL}/inventory`);
