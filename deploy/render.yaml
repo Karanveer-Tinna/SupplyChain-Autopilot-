@@ -16,6 +16,10 @@ services:
     buildCommand: pip install -e packages/contracts && pip install -r requirements.txt
     startCommand: uvicorn services.crewai_service.server:app --host 0.0.0.0 --port $PORT
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: PYTHONPATH
+        value: .
       - key: DATABASE_URL
         fromDatabase:
           name: supplychain-postgres
@@ -29,9 +33,13 @@ services:
     env: python
     region: oregon
     plan: free
-    buildCommand: pip install -e packages/contracts && pip install -r requirements.txt && python data/seed/seed_data.py
-    startCommand: uvicorn services.backend.app.main:app --host 0.0.0.0 --port $PORT
+    buildCommand: pip install -e packages/contracts && pip install -r requirements.txt
+    startCommand: python data/seed/seed_data.py && uvicorn services.backend.app.main:app --host 0.0.0.0 --port $PORT
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: PYTHONPATH
+        value: .
       - key: DATABASE_URL
         fromDatabase:
           name: supplychain-postgres
@@ -48,15 +56,14 @@ services:
   - type: web
     name: supplychain-frontend
     env: static
-    region: oregon
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: ./frontend/dist
     envVars:
       - key: VITE_API_BASE_URL
         fromService:
-          type: web
           name: supplychain-backend
-          property: url
+          type: web
+          property: host
     routes:
       - type: rewrite
         source: /*

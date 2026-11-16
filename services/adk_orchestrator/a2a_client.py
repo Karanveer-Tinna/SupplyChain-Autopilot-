@@ -11,13 +11,19 @@ CREWAI_A2A_URL = os.getenv("CREWAI_A2A_URL", "http://127.0.0.1:8001")
 
 class A2AClient:
     def __init__(self, base_url: Optional[str] = None):
-        self.base_url = (base_url or CREWAI_A2A_URL).rstrip("/")
+        raw_url = (base_url or CREWAI_A2A_URL).strip()
+        if not raw_url.startswith("http://") and not raw_url.startswith("https://"):
+            if "onrender.com" in raw_url or "render.com" in raw_url:
+                raw_url = f"https://{raw_url}"
+            else:
+                raw_url = f"http://{raw_url}"
+        self.base_url = raw_url.rstrip("/")
         self.agent_card: Optional[Dict[str, Any]] = None
 
     def discover_agent_card(self) -> Dict[str, Any]:
         """Fetches the Agent Card from the standard discovery path."""
         url = f"{self.base_url}/.well-known/agent-card.json"
-        with httpx.Client(timeout=10.0) as client:
+        with httpx.Client(timeout=15.0, follow_redirects=True) as client:
             resp = client.get(url)
             resp.raise_for_status()
             self.agent_card = resp.json()
@@ -38,7 +44,7 @@ class A2AClient:
             "trace_id": trace_id,
             "payload": payload,
         }
-        with httpx.Client(timeout=30.0) as client:
+        with httpx.Client(timeout=45.0, follow_redirects=True) as client:
             resp = client.post(url, json=req_data)
             resp.raise_for_status()
             data = resp.json()
