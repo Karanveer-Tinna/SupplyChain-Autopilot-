@@ -13,7 +13,7 @@ services:
     env: python
     region: oregon
     plan: free
-    buildCommand: pip install -e packages/contracts && pip install -r requirements.txt
+    buildCommand: pip install uv && uv pip install --system -e packages/contracts -r requirements.txt
     startCommand: uvicorn services.crewai_service.server:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
@@ -33,7 +33,7 @@ services:
     env: python
     region: oregon
     plan: free
-    buildCommand: pip install -e packages/contracts && pip install -r requirements.txt
+    buildCommand: pip install uv && uv pip install --system -e packages/contracts -r requirements.txt
     startCommand: python data/seed/seed_data.py && uvicorn services.backend.app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION

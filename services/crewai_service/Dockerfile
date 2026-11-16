@@ -8,11 +8,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY packages/contracts /app/packages/contracts
-RUN pip install --no-cache-dir -e /app/packages/contracts
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
+COPY packages/contracts /app/packages/contracts
 COPY requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN uv pip install --system --no-cache -e /app/packages/contracts -r /app/requirements.txt
 
 COPY . /app
 
