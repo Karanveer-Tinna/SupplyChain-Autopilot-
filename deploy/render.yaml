@@ -1,12 +1,13 @@
-services:
-  # 1. PostgreSQL 16 Database
-  - type: postgres
-    name: supplychain-postgres
+databases:
+  - name: supplychain-postgres
+    databaseName: supplychain_autopilot
+    user: supplychain
     region: oregon
-    ipAllowList: []
     plan: free
+    ipAllowList: []
 
-  # 2. CrewAI A2A Service
+services:
+  # 1. CrewAI A2A Service
   - type: web
     name: supplychain-crewai-service
     env: python
@@ -19,8 +20,10 @@ services:
         fromDatabase:
           name: supplychain-postgres
           property: connectionString
+      - key: GEMINI_API_KEY
+        sync: false
 
-  # 3. FastAPI Backend & ADK Orchestrator
+  # 2. FastAPI Backend & ADK Orchestrator
   - type: web
     name: supplychain-backend
     env: python
@@ -38,14 +41,22 @@ services:
           name: supplychain-crewai-service
           type: web
           property: host
+      - key: GEMINI_API_KEY
+        sync: false
 
-  # 4. React 18 Frontend Management Dashboard
+  # 3. React 18 Frontend Management Dashboard
   - type: web
     name: supplychain-frontend
     env: static
     region: oregon
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: supplychain-backend
+          property: url
     routes:
       - type: rewrite
         source: /*
