@@ -5,21 +5,29 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #0b1120;
-  color: #f1f5f9;
+  background-color: #1e1e2e; /* Base: Primary canvas */
+  color: #cdd6f4;            /* Text */
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
 }
 
+/* Custom Scrollbars in Catppuccin Theme */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #11111b; /* Crust */
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #313244; /* Surface 0 */
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #45475a; /* Surface 1 */
+}
+
+/* Accent Selection Highlight */
+::selection {
+  background: #cba6f7; /* Mauve */
+  color: #11111b;      /* Crust */
 }

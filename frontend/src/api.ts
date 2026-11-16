@@ -1,10 +1,17 @@
-import { InventoryItem, WorkflowDetails, BenchmarkSummary } from './types';
+import { InventoryItem, WorkflowDetails, BenchmarkSummary, SupplierItem } from './types';
 
 const BASE_URL = '/api';
 
 export async function fetchInventory(): Promise<InventoryItem[]> {
   const res = await fetch(`${BASE_URL}/inventory`);
   if (!res.ok) throw new Error('Failed to load inventory');
+  return res.json();
+}
+
+export async function fetchSuppliers(componentId?: string): Promise<SupplierItem[]> {
+  const url = componentId ? `${BASE_URL}/suppliers?component_id=${componentId}` : `${BASE_URL}/suppliers`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Failed to load suppliers');
   return res.json();
 }
 

@@ -172,195 +172,195 @@ export const ObservatoryTab: React.FC<Props> = ({ activeWorkflow }) => {
 
   return (
     <div className="space-y-6">
-      {/* Visual Multi-Agent Architecture Pipeline */}
-      <div className="bg-slate-800/80 border border-slate-700/80 rounded-xl p-5 shadow-lg">
+      {/* Visual Multi-Agent Architecture Pipeline: Surface 0 Card with Surface 1 border */}
+      <div className="bg-surface0 border border-surface1 rounded-xl p-5 shadow-lg">
         <div className="flex items-center justify-between mb-1">
-          <h3 className="text-base font-semibold text-white">
+          <h3 className="text-base font-semibold text-text">
             Agentic Workflow &amp; Inter-Agent Protocol (A2A) Trace
           </h3>
-          <span className="text-[11px] font-mono text-sky-400 bg-sky-950/80 border border-sky-500/40 px-2 py-0.5 rounded">
+          <span className="text-[11px] font-mono text-sapphire bg-mantle border border-sapphire/40 px-2.5 py-0.5 rounded shadow-sm">
             🔍 Hover or Click stage to inspect state
           </span>
         </div>
-        <p className="text-xs text-slate-400 mb-6">
+        <p className="text-xs text-subtext0 mb-6">
           Real execution flow across Google ADK, CrewAI A2A Service, FastMCP tools, and PostgreSQL Blackboard
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-3 relative">
-          {/* Node 1: ADK Inventory */}
+          {/* Node 1: ADK Inventory (Blue/Sapphire for tool/API execution) */}
           <div
             onMouseEnter={() => setHoveredNode('inventory')}
             onMouseLeave={() => setHoveredNode(null)}
             onClick={() => setPinnedNode(pinnedNode === 'inventory' ? null : 'inventory')}
-            className={`p-3 bg-slate-900 border rounded-lg relative cursor-pointer transition select-none ${
+            className={`p-3 bg-mantle border rounded-xl relative cursor-pointer transition select-none ${
               activeStage === 'inventory'
-                ? 'border-sky-400 bg-slate-850 shadow-lg shadow-sky-500/10 ring-1 ring-sky-400/50'
-                : 'border-sky-500/40 hover:border-sky-400 hover:bg-slate-850'
+                ? 'border-blue bg-surface1/60 shadow-lg shadow-blue/15 ring-1 ring-blue/50'
+                : 'border-blue/40 hover:border-blue hover:bg-surface1/40'
             }`}
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-bold px-1.5 py-0.5 bg-sky-500/20 text-sky-300 rounded font-mono">
+              <span className="text-[10px] font-bold px-1.5 py-0.5 bg-blue/20 text-blue rounded font-mono">
                 Google ADK
               </span>
-              <Database className="w-3.5 h-3.5 text-sky-400" />
+              <Database className="w-3.5 h-3.5 text-blue" />
             </div>
-            <div className="text-xs font-semibold text-white flex items-center justify-between">
+            <div className="text-xs font-semibold text-text flex items-center justify-between">
               <span>Inventory Agent</span>
-              {pinnedNode === 'inventory' && <Pin className="w-3 h-3 text-sky-400 fill-sky-400" />}
+              {pinnedNode === 'inventory' && <Pin className="w-3 h-3 text-blue fill-blue" />}
             </div>
-            <div className="text-[10px] text-slate-400 mt-1">
-              Calls <span className="font-mono text-sky-300">erp-db-mcp</span>; emits{' '}
-              <span className="font-mono text-slate-300">ShortageAlert</span>.
+            <div className="text-[10px] text-subtext0 mt-1">
+              Calls <span className="font-mono text-sapphire">erp-db-mcp</span>; emits{' '}
+              <span className="font-mono text-subtext1">ShortageAlert</span>.
             </div>
-            <div className="text-[9px] text-sky-400 font-mono mt-2">🔍 Hover / Click to View</div>
+            <div className="text-[9px] text-blue font-mono mt-2">🔍 Hover / Click to View</div>
           </div>
 
-          {/* Node 2: A2A Bridge & CrewAI Sourcing */}
+          {/* Node 2: A2A Bridge & CrewAI Sourcing (Sapphire) */}
           <div
             onMouseEnter={() => setHoveredNode('sourcing')}
             onMouseLeave={() => setHoveredNode(null)}
             onClick={() => setPinnedNode(pinnedNode === 'sourcing' ? null : 'sourcing')}
-            className={`p-3 bg-slate-900 border rounded-lg relative cursor-pointer transition select-none ${
+            className={`p-3 bg-mantle border rounded-xl relative cursor-pointer transition select-none ${
               activeStage === 'sourcing'
-                ? 'border-indigo-400 bg-slate-850 shadow-lg shadow-indigo-500/10 ring-1 ring-indigo-400/50'
-                : 'border-indigo-500/40 hover:border-indigo-400 hover:bg-slate-850'
+                ? 'border-sapphire bg-surface1/60 shadow-lg shadow-sapphire/15 ring-1 ring-sapphire/50'
+                : 'border-sapphire/40 hover:border-sapphire hover:bg-surface1/40'
             }`}
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-bold px-1.5 py-0.5 bg-indigo-500/20 text-indigo-300 rounded font-mono">
+              <span className="text-[10px] font-bold px-1.5 py-0.5 bg-sapphire/20 text-sapphire rounded font-mono">
                 A2A Protocol
               </span>
-              <Cpu className="w-3.5 h-3.5 text-indigo-400" />
+              <Cpu className="w-3.5 h-3.5 text-sapphire" />
             </div>
-            <div className="text-xs font-semibold text-white flex items-center justify-between">
+            <div className="text-xs font-semibold text-text flex items-center justify-between">
               <span>Sourcing &amp; RFQ</span>
-              {pinnedNode === 'sourcing' && <Pin className="w-3 h-3 text-indigo-400 fill-indigo-400" />}
+              {pinnedNode === 'sourcing' && <Pin className="w-3 h-3 text-sapphire fill-sapphire" />}
             </div>
-            <div className="text-[10px] text-slate-400 mt-1">
-              CrewAI service receives task via A2A; emits <span className="font-mono text-slate-300">RFQAndQuotesList</span>.
+            <div className="text-[10px] text-subtext0 mt-1">
+              CrewAI service receives task via A2A; emits <span className="font-mono text-subtext1">RFQAndQuotesList</span>.
             </div>
-            <div className="text-[9px] text-indigo-400 font-mono mt-2">🔍 Hover / Click to View</div>
+            <div className="text-[9px] text-sapphire font-mono mt-2">🔍 Hover / Click to View</div>
           </div>
 
-          {/* Node 3: ADK Risk Optimization */}
+          {/* Node 3: ADK Risk Optimization (Mauve for Agent Thinking / Reasoning) */}
           <div
             onMouseEnter={() => setHoveredNode('risk')}
             onMouseLeave={() => setHoveredNode(null)}
             onClick={() => setPinnedNode(pinnedNode === 'risk' ? null : 'risk')}
-            className={`p-3 bg-slate-900 border rounded-lg relative cursor-pointer transition select-none ${
+            className={`p-3 bg-mantle border rounded-xl relative cursor-pointer transition select-none ${
               activeStage === 'risk'
-                ? 'border-amber-400 bg-slate-850 shadow-lg shadow-amber-500/10 ring-1 ring-amber-400/50'
-                : 'border-amber-500/40 hover:border-amber-400 hover:bg-slate-850'
+                ? 'border-mauve bg-surface1/60 shadow-lg shadow-mauve/15 ring-1 ring-mauve/50'
+                : 'border-mauve/40 hover:border-mauve hover:bg-surface1/40'
             }`}
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-bold px-1.5 py-0.5 bg-amber-500/20 text-amber-300 rounded font-mono">
+              <span className="text-[10px] font-bold px-1.5 py-0.5 bg-mauve/20 text-mauve rounded font-mono">
                 Google ADK
               </span>
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <Sparkles className="w-3.5 h-3.5 text-mauve" />
             </div>
-            <div className="text-xs font-semibold text-white flex items-center justify-between">
+            <div className="text-xs font-semibold text-text flex items-center justify-between">
               <span>Risk Optimizer</span>
-              {pinnedNode === 'risk' && <Pin className="w-3 h-3 text-amber-400 fill-amber-400" />}
+              {pinnedNode === 'risk' && <Pin className="w-3 h-3 text-mauve fill-mauve" />}
             </div>
-            <div className="text-[10px] text-slate-400 mt-1">
-              Calls <span className="font-mono text-amber-300">procurement-calc-mcp</span>; emits{' '}
-              <span className="font-mono text-slate-300">RiskDecision</span>.
+            <div className="text-[10px] text-subtext0 mt-1">
+              Calls <span className="font-mono text-mauve">procurement-calc-mcp</span>; emits{' '}
+              <span className="font-mono text-subtext1">RiskDecision</span>.
             </div>
-            <div className="text-[9px] text-amber-400 font-mono mt-2">🔍 Hover / Click to View</div>
+            <div className="text-[9px] text-mauve font-mono mt-2">🔍 Hover / Click to View</div>
           </div>
 
-          {/* Node 4: Governance Gate */}
+          {/* Node 4: Governance Gate (Peach for HITL Approvals / Alerts) */}
           <div
             onMouseEnter={() => setHoveredNode('governance')}
             onMouseLeave={() => setHoveredNode(null)}
             onClick={() => setPinnedNode(pinnedNode === 'governance' ? null : 'governance')}
-            className={`p-3 bg-slate-900 border rounded-lg relative cursor-pointer transition select-none ${
+            className={`p-3 bg-mantle border rounded-xl relative cursor-pointer transition select-none ${
               activeStage === 'governance'
-                ? 'border-purple-400 bg-slate-850 shadow-lg shadow-purple-500/10 ring-1 ring-purple-400/50'
-                : 'border-purple-500/40 hover:border-purple-400 hover:bg-slate-850'
+                ? 'border-peach bg-surface1/60 shadow-lg shadow-peach/15 ring-1 ring-peach/50'
+                : 'border-peach/40 hover:border-peach hover:bg-surface1/40'
             }`}
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-bold px-1.5 py-0.5 bg-purple-500/20 text-purple-300 rounded font-mono">
+              <span className="text-[10px] font-bold px-1.5 py-0.5 bg-peach/20 text-peach rounded font-mono">
                 HITL Gate
               </span>
-              <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
+              <ShieldCheck className="w-3.5 h-3.5 text-peach" />
             </div>
-            <div className="text-xs font-semibold text-white flex items-center justify-between">
+            <div className="text-xs font-semibold text-text flex items-center justify-between">
               <span>Manager Gate</span>
-              {pinnedNode === 'governance' && <Pin className="w-3 h-3 text-purple-400 fill-purple-400" />}
+              {pinnedNode === 'governance' && <Pin className="w-3 h-3 text-peach fill-peach" />}
             </div>
-            <div className="text-[10px] text-slate-400 mt-1">
+            <div className="text-[10px] text-subtext0 mt-1">
               Evaluates budget &amp; criticality policy; pauses if escalation needed.
             </div>
-            <div className="text-[9px] text-purple-400 font-mono mt-2">🛡️ Hover / Click to View</div>
+            <div className="text-[9px] text-peach font-mono mt-2">🛡️ Hover / Click to View</div>
           </div>
 
-          {/* Node 5: CrewAI Logistics & 3-Way Match */}
+          {/* Node 5: CrewAI Logistics & 3-Way Match (Green for Completed / Verified) */}
           <div
             onMouseEnter={() => setHoveredNode('invoice')}
             onMouseLeave={() => setHoveredNode(null)}
             onClick={() => setPinnedNode(pinnedNode === 'invoice' ? null : 'invoice')}
-            className={`p-3 bg-slate-900 border rounded-lg relative cursor-pointer transition select-none ${
+            className={`p-3 bg-mantle border rounded-xl relative cursor-pointer transition select-none ${
               activeStage === 'invoice'
-                ? 'border-emerald-400 bg-slate-850 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-400/50'
-                : 'border-emerald-500/40 hover:border-emerald-400 hover:bg-slate-850'
+                ? 'border-green bg-surface1/60 shadow-lg shadow-green/15 ring-1 ring-green/50'
+                : 'border-green/40 hover:border-green hover:bg-surface1/40'
             }`}
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-bold px-1.5 py-0.5 bg-emerald-500/20 text-emerald-300 rounded font-mono">
+              <span className="text-[10px] font-bold px-1.5 py-0.5 bg-green/20 text-green rounded font-mono">
                 CrewAI
               </span>
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-green" />
             </div>
-            <div className="text-xs font-semibold text-white flex items-center justify-between">
+            <div className="text-xs font-semibold text-text flex items-center justify-between">
               <span>3-Way Match</span>
-              {pinnedNode === 'invoice' && <Pin className="w-3 h-3 text-emerald-400 fill-emerald-400" />}
+              {pinnedNode === 'invoice' && <Pin className="w-3 h-3 text-green fill-green" />}
             </div>
-            <div className="text-[10px] text-slate-400 mt-1">
+            <div className="text-[10px] text-subtext0 mt-1">
               Reconciles PO, GRN, and Invoice; emits{' '}
-              <span className="font-mono text-slate-300">InvoiceAuditResult</span>.
+              <span className="font-mono text-subtext1">InvoiceAuditResult</span>.
             </div>
-            <div className="text-[9px] text-emerald-400 font-mono mt-2">🔍 Hover / Click to View</div>
+            <div className="text-[9px] text-green font-mono mt-2">🔍 Hover / Click to View</div>
           </div>
         </div>
 
-        {/* Hover / Pinned Blackboard Inspector Floating Card */}
+        {/* Hover / Pinned Blackboard Inspector Floating Card: Mantle with Mauve highlight */}
         {activeStage && (
           <div
             onMouseEnter={() => setHoveredNode(activeStage)}
             onMouseLeave={() => setHoveredNode(null)}
-            className="mt-4 p-4 bg-slate-950/95 border-2 border-sky-400/80 rounded-xl shadow-2xl transition-all"
+            className="mt-4 p-4 bg-mantle/95 border-2 border-mauve/80 rounded-xl shadow-2xl transition-all"
           >
-            <div className="flex items-center justify-between mb-3 border-b border-slate-800 pb-2">
+            <div className="flex items-center justify-between mb-3 border-b border-surface1 pb-2">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-sky-400 uppercase font-mono tracking-wider">
+                <span className="text-xs font-bold text-mauve uppercase font-mono tracking-wider">
                   Hover Blackboard Inspector
                 </span>
-                <span className="text-[11px] text-slate-300 font-mono px-2 py-0.5 bg-slate-800 rounded">
+                <span className="text-[11px] text-subtext1 font-mono px-2 py-0.5 bg-surface0 rounded border border-surface1">
                   Stage: {activeStage.toUpperCase()}
                 </span>
                 {pinnedNode === activeStage && (
-                  <span className="text-[10px] text-emerald-400 bg-emerald-950/80 border border-emerald-500/40 px-2 py-0.5 rounded flex items-center gap-1 font-mono">
-                    <Pin className="w-2.5 h-2.5 fill-emerald-400" /> Pinned Open
+                  <span className="text-[10px] text-green bg-green/20 border border-green/40 px-2 py-0.5 rounded flex items-center gap-1 font-mono">
+                    <Pin className="w-2.5 h-2.5 fill-green" /> Pinned Open
                   </span>
                 )}
               </div>
               <div className="flex items-center gap-2">
                 {liveArtifact ? (
-                  <span className="text-[10px] bg-emerald-900/60 border border-emerald-500/40 text-emerald-200 px-2.5 py-0.5 rounded font-mono">
+                  <span className="text-[10px] bg-green/20 border border-green/40 text-green px-2.5 py-0.5 rounded font-mono font-semibold">
                     ✓ Live DB Record
                   </span>
                 ) : (
-                  <span className="text-[10px] bg-sky-900/60 border border-sky-500/40 text-sky-200 px-2.5 py-0.5 rounded font-mono">
+                  <span className="text-[10px] bg-sapphire/20 border border-sapphire/40 text-sapphire px-2.5 py-0.5 rounded font-mono">
                     ℹ️ Schema Blueprint Preview
                   </span>
                 )}
                 {pinnedNode && (
                   <button
                     onClick={() => setPinnedNode(null)}
-                    className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800"
+                    className="p-1 text-subtext0 hover:text-text rounded hover:bg-surface0 transition"
                     title="Unpin inspector"
                   >
                     <X className="w-3.5 h-3.5" />
@@ -370,40 +370,40 @@ export const ObservatoryTab: React.FC<Props> = ({ activeWorkflow }) => {
             </div>
 
             <div className="text-xs">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2 text-slate-400 text-[11px]">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2 text-subtext0 text-[11px]">
                 <div>
                   Artifact:{' '}
-                  <span className="font-mono text-white">
+                  <span className="font-mono text-text">
                     {liveArtifact ? liveArtifact.artifact_type : blueprint?.type}
                   </span>
                 </div>
                 <div>
                   Producer:{' '}
-                  <span className="font-mono text-white">
+                  <span className="font-mono text-text">
                     {liveArtifact ? liveArtifact.producer_agent : blueprint?.producer}
                   </span>
                 </div>
                 <div>
                   Framework:{' '}
-                  <span className="font-mono text-white">
+                  <span className="font-mono text-text">
                     {liveArtifact ? liveArtifact.framework : blueprint?.framework}
                   </span>
                 </div>
                 <div>
                   Version:{' '}
-                  <span className="font-mono text-white">
+                  <span className="font-mono text-text">
                     v{liveArtifact ? liveArtifact.version : blueprint?.version}
                   </span>
                 </div>
               </div>
 
               {!liveArtifact && (
-                <div className="text-[11px] text-sky-300/80 bg-sky-950/40 border border-sky-800/40 px-2.5 py-1 rounded mb-2">
+                <div className="text-[11px] text-sapphire bg-sapphire/15 border border-sapphire/30 px-2.5 py-1 rounded-lg mb-2">
                   Showing schema blueprint &amp; sample contract. Run <strong>Autopilot</strong> on Tab 1 to populate with live PostgreSQL Blackboard execution records.
                 </div>
               )}
 
-              <pre className="text-[11px] text-emerald-400 font-mono bg-slate-900/90 p-3 rounded-lg border border-slate-800 max-h-56 overflow-y-auto leading-relaxed">
+              <pre className="text-[11px] text-green font-mono bg-crust p-3 rounded-lg border border-surface1 max-h-56 overflow-y-auto leading-relaxed shadow-inner">
                 {JSON.stringify(liveArtifact ? liveArtifact.payload : blueprint?.payload, null, 2)}
               </pre>
             </div>
@@ -413,24 +413,24 @@ export const ObservatoryTab: React.FC<Props> = ({ activeWorkflow }) => {
 
       {/* Blackboard Artifact Inspector */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-slate-800/80 border border-slate-700/80 rounded-xl p-5 shadow-lg">
+        <div className="bg-surface0 border border-surface1 rounded-xl p-5 shadow-lg">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-semibold text-white">
+              <h3 className="text-sm font-semibold text-text">
                 PostgreSQL Blackboard Artifacts
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-subtext0">
                 Immutable, append-only records from table{' '}
-                <span className="font-mono text-slate-300">blackboard_entries</span>
+                <span className="font-mono text-sapphire">blackboard_entries</span>
               </p>
             </div>
-            <span className="text-xs font-mono text-slate-400">
+            <span className="text-xs font-mono text-subtext0">
               {artifacts.length} artifacts recorded
             </span>
           </div>
 
           {artifacts.length === 0 ? (
-            <div className="p-8 text-center text-xs text-slate-500">
+            <div className="p-8 text-center text-xs text-overlay0">
               No artifacts recorded for the active workflow yet. Run an Autopilot workflow on Tab 1 to populate.
             </div>
           ) : (
@@ -439,27 +439,27 @@ export const ObservatoryTab: React.FC<Props> = ({ activeWorkflow }) => {
                 <div
                   key={a.entry_id}
                   onClick={() => setSelectedArtifact(a)}
-                  className={`p-3 rounded-lg border cursor-pointer transition text-xs ${
+                  className={`p-3 rounded-xl border cursor-pointer transition text-xs ${
                     selectedArtifact?.entry_id === a.entry_id
-                      ? 'bg-slate-700 border-sky-500'
-                      : 'bg-slate-900/60 border-slate-700/60 hover:bg-slate-750'
+                      ? 'bg-surface1 border-mauve shadow-md'
+                      : 'bg-mantle border-surface1/60 hover:bg-surface1/50'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-white font-mono">{a.artifact_type}</span>
+                    <span className="font-semibold text-text font-mono">{a.artifact_type}</span>
                     <span
-                      className={`text-[10px] px-2 py-0.5 rounded font-mono ${
+                      className={`text-[10px] px-2 py-0.5 rounded font-mono font-medium ${
                         a.framework === 'ADK'
-                          ? 'bg-sky-500/20 text-sky-300'
-                          : 'bg-indigo-500/20 text-indigo-300'
+                          ? 'bg-blue/20 text-blue border border-blue/40'
+                          : 'bg-sapphire/20 text-sapphire border border-sapphire/40'
                       }`}
                     >
                       {a.framework}
                     </span>
                   </div>
-                  <div className="text-[11px] text-slate-400 mt-1 flex justify-between">
+                  <div className="text-[11px] text-subtext0 mt-1 flex justify-between">
                     <span>Agent: {a.producer_agent}</span>
-                    <span className="font-mono text-slate-500">v{a.version}</span>
+                    <span className="font-mono text-overlay0">v{a.version}</span>
                   </div>
                 </div>
               ))}
@@ -467,22 +467,22 @@ export const ObservatoryTab: React.FC<Props> = ({ activeWorkflow }) => {
           )}
         </div>
 
-        {/* Artifact JSON Viewer */}
-        <div className="bg-slate-800/80 border border-slate-700/80 rounded-xl p-5 shadow-lg">
-          <h3 className="text-sm font-semibold text-white mb-1">Artifact Payload Inspector</h3>
-          <p className="text-xs text-slate-400 mb-4">
+        {/* Artifact JSON Viewer: Crust background with Green text */}
+        <div className="bg-surface0 border border-surface1 rounded-xl p-5 shadow-lg">
+          <h3 className="text-sm font-semibold text-text mb-1">Artifact Payload Inspector</h3>
+          <p className="text-xs text-subtext0 mb-4">
             {selectedArtifact
               ? `Viewing ${selectedArtifact.artifact_type} (Entry: ${selectedArtifact.entry_id})`
               : 'Select an artifact on the left to inspect structured payload'}
           </p>
 
-          <div className="bg-slate-950 border border-slate-800 rounded-lg p-3 h-80 overflow-y-auto">
+          <div className="bg-crust border border-surface1 rounded-xl p-3.5 h-80 overflow-y-auto shadow-inner">
             {selectedArtifact ? (
-              <pre className="text-xs text-emerald-400 font-mono whitespace-pre-wrap">
+              <pre className="text-xs text-green font-mono whitespace-pre-wrap leading-relaxed">
                 {JSON.stringify(selectedArtifact.payload, null, 2)}
               </pre>
             ) : (
-              <div className="h-full flex items-center justify-center text-xs text-slate-600">
+              <div className="h-full flex items-center justify-center text-xs text-overlay0">
                 Click an artifact to inspect its schema and values
               </div>
             )}
@@ -491,14 +491,14 @@ export const ObservatoryTab: React.FC<Props> = ({ activeWorkflow }) => {
       </div>
 
       {/* Security Guardrail Live Sandbox */}
-      <div className="bg-slate-800/80 border border-slate-700/80 rounded-xl p-5 shadow-lg">
+      <div className="bg-surface0 border border-surface1 rounded-xl p-5 shadow-lg">
         <div className="flex items-center gap-2 mb-2">
-          <ShieldCheck className="w-5 h-5 text-sky-400" />
-          <h3 className="text-sm font-semibold text-white">
+          <ShieldCheck className="w-5 h-5 text-mauve" />
+          <h3 className="text-sm font-semibold text-text">
             Security Guardrails &amp; Prompt Injection Sandbox
           </h3>
         </div>
-        <p className="text-xs text-slate-400 mb-4">
+        <p className="text-xs text-subtext0 mb-4">
           Test untrusted supplier remarks, user inputs, and invoice notes against security guardrail filters
         </p>
 
@@ -507,13 +507,13 @@ export const ObservatoryTab: React.FC<Props> = ({ activeWorkflow }) => {
             type="text"
             value={testInput}
             onChange={(e) => setTestInput(e.target.value)}
-            className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500 font-mono"
+            className="flex-1 bg-mantle border border-surface1 rounded-xl px-3.5 py-2.5 text-xs text-text focus:outline-none focus:border-mauve font-mono shadow-inner"
             placeholder="Enter untrusted instruction or supplier remark..."
           />
           <button
             onClick={handleTestGuardrail}
             disabled={isScanning}
-            className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-xs font-semibold transition"
+            className="px-4 py-2.5 bg-mauve hover:bg-mauve-light text-crust rounded-xl text-xs font-bold transition shadow-sm disabled:opacity-50"
           >
             {isScanning ? 'Scanning...' : 'Scan Input'}
           </button>
@@ -521,24 +521,24 @@ export const ObservatoryTab: React.FC<Props> = ({ activeWorkflow }) => {
 
         {guardrailResult && (
           <div
-            className={`mt-4 p-3 rounded-lg border text-xs flex items-start gap-3 ${
+            className={`mt-4 p-3.5 rounded-xl border text-xs flex items-start gap-3 shadow-sm ${
               guardrailResult.blocked
-                ? 'bg-red-950/60 border-red-500/50 text-red-200'
-                : 'bg-emerald-950/60 border-emerald-500/50 text-emerald-200'
+                ? 'bg-red/15 border-red/40 text-red'
+                : 'bg-green/15 border-green/40 text-green'
             }`}
           >
             {guardrailResult.blocked ? (
-              <AlertOctagon className="w-4 h-4 text-red-400 mt-0.5 shrink-0" />
+              <AlertOctagon className="w-4 h-4 text-red mt-0.5 shrink-0" />
             ) : (
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-green mt-0.5 shrink-0" />
             )}
             <div>
-              <div className="font-semibold mb-1">
-                {guardrailResult.blocked ? 'BLOCKED by Guardrail' : 'PASSED Guardrail Verification'}
+              <div className="font-bold">
+                {guardrailResult.blocked ? 'THREAT DETECTED & BLOCKED' : 'INPUT VERIFIED SAFE'}
               </div>
-              <div className="text-[11px] opacity-90">{guardrailResult.reason}</div>
+              <div className="mt-0.5 text-[11px] opacity-90">{guardrailResult.reason}</div>
               {guardrailResult.matched_patterns?.length > 0 && (
-                <div className="mt-1 font-mono text-[10px] text-red-300">
+                <div className="mt-1 font-mono text-[10px] text-red font-semibold">
                   Matched pattern: {guardrailResult.matched_patterns.join(', ')}
                 </div>
               )}

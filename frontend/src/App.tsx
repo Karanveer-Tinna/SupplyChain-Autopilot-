@@ -53,35 +53,35 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
-      {/* Top Navigation Bar */}
-      <header className="bg-slate-900 border-b border-slate-800 px-6 py-4 sticky top-0 z-50 shadow-md">
+    <div className="min-h-screen bg-base text-text flex flex-col font-sans selection:bg-mauve selection:text-crust">
+      {/* Top Navigation Bar: Crust background with Surface0 border */}
+      <header className="bg-crust border-b border-surface0 px-6 py-4 sticky top-0 z-50 shadow-md">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-sky-400">
+            <div className="w-9 h-9 rounded-lg bg-mauve/20 border border-mauve/40 flex items-center justify-center text-mauve shadow-sm">
               <Cpu className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-base font-bold text-white flex items-center gap-2">
+              <div className="text-base font-bold text-text flex items-center gap-2">
                 SupplyChain Autopilot
-                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 bg-sky-950 border border-sky-500/40 text-sky-400 rounded">
+                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 bg-mantle border border-mauve/40 text-mauve rounded">
                   v1.0 Baseline
                 </span>
               </div>
-              <div className="text-xs text-slate-400">
+              <div className="text-xs text-subtext0">
                 Google ADK + CrewAI &bull; A2A Protocol &bull; FastMCP Tools &bull; PostgreSQL Blackboard
               </div>
             </div>
           </div>
 
-          {/* Tab Selector */}
-          <div className="flex bg-slate-950 p-1 rounded-xl border border-slate-800">
+          {/* Tab Selector: Mantle container with Surface0 border */}
+          <div className="flex bg-mantle p-1 rounded-xl border border-surface0 shadow-inner">
             <button
               onClick={() => setActiveTab('operations')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition ${
                 activeTab === 'operations'
-                  ? 'bg-sky-600 text-white shadow'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-mauve text-crust font-bold shadow-md'
+                  : 'text-subtext0 hover:text-text hover:bg-surface0/60'
               }`}
             >
               <Activity className="w-3.5 h-3.5" />
@@ -91,8 +91,8 @@ export const App: React.FC = () => {
               onClick={() => setActiveTab('observatory')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition ${
                 activeTab === 'observatory'
-                  ? 'bg-sky-600 text-white shadow'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-mauve text-crust font-bold shadow-md'
+                  : 'text-subtext0 hover:text-text hover:bg-surface0/60'
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
@@ -102,8 +102,8 @@ export const App: React.FC = () => {
               onClick={() => setActiveTab('experiments')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition ${
                 activeTab === 'experiments'
-                  ? 'bg-sky-600 text-white shadow'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-mauve text-crust font-bold shadow-md'
+                  : 'text-subtext0 hover:text-text hover:bg-surface0/60'
               }`}
             >
               <BarChart3 className="w-3.5 h-3.5" />
@@ -113,10 +113,10 @@ export const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Content Body */}
+      {/* Main Content Body: Base canvas */}
       <main className="max-w-7xl mx-auto w-full px-6 py-6 flex-1">
         {loading ? (
-          <div className="flex items-center justify-center h-64 text-sm text-slate-400">
+          <div className="flex items-center justify-center h-64 text-sm text-subtext0">
             Connecting to backend and FastMCP servers...
           </div>
         ) : (
@@ -139,8 +139,8 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950 px-6 py-3 text-center text-xs text-slate-500">
+      {/* Footer: Crust background with Surface0 border */}
+      <footer className="border-t border-surface0 bg-crust px-6 py-3 text-center text-xs text-overlay0">
         SupplyChain Autopilot &bull; Multi-Agent Procurement &bull; Google ADK &amp; CrewAI Interoperability
       </footer>
     </div>

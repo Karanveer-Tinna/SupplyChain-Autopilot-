@@ -1,3 +1,17 @@
+export interface SupplierItem {
+  supplier_id: string;
+  component_id: string;
+  supplier_name: string;
+  unit_price: number;
+  shipping_cost: number;
+  lead_time_days: number;
+  capacity: number;
+  moq: number;
+  reliability_score: number;
+  is_active: boolean;
+  technical_compliant: boolean;
+}
+
 export interface InventoryItem {
   component_id: string;
   name: string;
