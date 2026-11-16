@@ -1,7 +1,13 @@
 """Seed data script for SupplyChain Autopilot.
 Populates simulated refrigerator manufacturing components and qualified suppliers.
 """
+import os
+import sys
 from datetime import datetime
+
+# Ensure project root is in sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
 from services.backend.app.models.database import (
     ComponentInventory,
     SupplierCatalog,
