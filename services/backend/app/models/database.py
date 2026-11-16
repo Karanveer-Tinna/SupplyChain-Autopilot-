@@ -24,7 +24,10 @@ from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 from sqlalchemy.types import JSON, TypeDecorator
 
 # Detect database URL from environment or default to local sqlite
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./supplychain.db")
+raw_db_url = os.getenv("DATABASE_URL", "sqlite:///./supplychain.db").strip()
+if raw_db_url.startswith("postgres://"):
+    raw_db_url = raw_db_url.replace("postgres://", "postgresql://", 1)
+DATABASE_URL = raw_db_url
 
 # Cross-platform JSON type: uses JSONB on postgres, standard JSON on sqlite
 class CrossPlatformJSON(TypeDecorator):
@@ -182,7 +185,9 @@ class BenchmarkRun(Base):
 
 
 def get_engine(db_url: Optional[str] = None):
-    url = db_url or DATABASE_URL
+    url = (db_url or DATABASE_URL).strip()
+    if url.startswith("postgres://"):
+        url = url.replace("postgres://", "postgresql://", 1)
     connect_args = {"check_same_thread": False} if url.startswith("sqlite") else {}
     return create_engine(url, connect_args=connect_args)
 

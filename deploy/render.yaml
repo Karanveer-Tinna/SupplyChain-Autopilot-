@@ -14,7 +14,7 @@ services:
     region: oregon
     plan: free
     buildCommand: pip install uv && uv pip install --python "$(which python)" -e packages/contracts -r requirements.txt
-    startCommand: uvicorn services.crewai_service.server:app --host 0.0.0.0 --port $PORT
+    startCommand: python -m uvicorn services.crewai_service.server:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
@@ -34,7 +34,7 @@ services:
     region: oregon
     plan: free
     buildCommand: pip install uv && uv pip install --python "$(which python)" -e packages/contracts -r requirements.txt
-    startCommand: python data/seed/seed_data.py && uvicorn services.backend.app.main:app --host 0.0.0.0 --port $PORT
+    startCommand: python data/seed/seed_data.py && python -m uvicorn services.backend.app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
@@ -58,6 +58,8 @@ services:
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: ./frontend/dist
     envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
       - key: VITE_API_BASE_URL
         fromService:
           name: supplychain-backend

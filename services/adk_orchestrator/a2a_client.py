@@ -23,7 +23,7 @@ class A2AClient:
     def discover_agent_card(self) -> Dict[str, Any]:
         """Fetches the Agent Card from the standard discovery path."""
         url = f"{self.base_url}/.well-known/agent-card.json"
-        with httpx.Client(timeout=15.0, follow_redirects=True) as client:
+        with httpx.Client(timeout=60.0, follow_redirects=True) as client:
             resp = client.get(url)
             resp.raise_for_status()
             self.agent_card = resp.json()
@@ -44,7 +44,7 @@ class A2AClient:
             "trace_id": trace_id,
             "payload": payload,
         }
-        with httpx.Client(timeout=45.0, follow_redirects=True) as client:
+        with httpx.Client(timeout=90.0, follow_redirects=True) as client:
             resp = client.post(url, json=req_data)
             resp.raise_for_status()
             data = resp.json()

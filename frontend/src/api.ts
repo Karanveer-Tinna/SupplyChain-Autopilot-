@@ -62,22 +62,49 @@ export async function fetchRecentWorkflows(): Promise<any[]> {
   return res.json();
 }
 
-export async function submitHitlDecision(workflowId: string, decision: 'APPROVE' | 'REJECT'): Promise<any> {
-  const res = await fetch(`${BASE_URL}/workflows/hitl-decision`, {
+export async function submitDecision(
+  workflowId: string,
+  decision: 'APPROVED' | 'REJECTED',
+  actor: string = 'Plant Manager',
+  comments: string = 'Decision recorded via Operations Console'
+): Promise<any> {
+  const res = await fetch(`${BASE_URL}/workflows/${workflowId}/decide`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      workflow_id: workflowId,
       decision,
+      actor,
+      comments,
     }),
   });
   if (!res.ok) {
     const err = await res.json();
-    throw new Error(err.detail || 'Failed to submit HITL decision');
+    throw new Error(err.detail || 'Failed to submit decision');
   }
   return res.json();
 }
 
+// Alias for convenience
+export const submitHitlDecision = (workflowId: string, decision: 'APPROVE' | 'REJECT') =>
+  submitDecision(workflowId, decision === 'APPROVE' ? 'APPROVED' : 'REJECTED');
+
+export async function calculateWhatIf(
+  workflowId: string,
+  weights: { w_cost: number; w_lead_time: number; w_reliability: number }
+): Promise<any> {
+  const res = await fetch(`${BASE_URL}/workflows/${workflowId}/what-if`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(weights),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.detail || 'What-If simulation failed');
+  }
+  return res.json();
+}
+
+// Alias for generic simulation
 export async function simulateWhatIf(
   unitPrice: number,
   leadTimeDays: number,
@@ -85,29 +112,16 @@ export async function simulateWhatIf(
   downtimeCostPerDay: number = 25000,
   supplierReliability: number = 0.95
 ): Promise<any> {
-  const res = await fetch(`${BASE_URL}/simulate/what-if`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      unit_price: unitPrice,
-      lead_time_days: leadTimeDays,
-      supplier_reliability: supplierReliability,
-      downtime_cost_per_day: downtimeCostPerDay,
-      weights,
-    }),
-  });
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.detail || 'Failed to simulate scenario');
-  }
-  return res.json();
+  return calculateWhatIf('generic', weights);
 }
 
-export async function fetchBenchmarks(): Promise<BenchmarkSummary> {
+export async function fetchBenchmarkSummary(): Promise<BenchmarkSummary> {
   const res = await fetch(`${BASE_URL}/benchmarks/summary`);
   if (!res.ok) throw new Error('Failed to fetch benchmark summary');
   return res.json();
 }
+
+export const fetchBenchmarks = fetchBenchmarkSummary;
 
 export async function triggerBenchmarkRun(): Promise<any> {
   const res = await fetch(`${BASE_URL}/benchmarks/run`, {
@@ -117,12 +131,14 @@ export async function triggerBenchmarkRun(): Promise<any> {
   return res.json();
 }
 
-export async function testGuardrailPrompt(text: string): Promise<any> {
+export async function testGuardrail(inputText: string): Promise<any> {
   const res = await fetch(`${BASE_URL}/guardrails/test`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text }),
+    body: JSON.stringify({ input_text: inputText }),
   });
   if (!res.ok) throw new Error('Failed to test guardrail');
   return res.json();
 }
+
+export const testGuardrailPrompt = testGuardrail;
