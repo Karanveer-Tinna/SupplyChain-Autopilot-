@@ -1,7 +1,7 @@
 import { InventoryItem, WorkflowDetails, BenchmarkSummary, SupplierItem } from './types';
 
 function resolveBaseUrl(): string {
-  const envUrl = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim();
+  const envUrl = ((import.meta as any).env?.VITE_API_BASE_URL as string | undefined)?.trim();
   if (!envUrl || envUrl === '/api') return '/api';
   let formatted = envUrl;
   if (!formatted.startsWith('http://') && !formatted.startsWith('https://') && !formatted.startsWith('/')) {

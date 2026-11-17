@@ -10,7 +10,7 @@ services:
   # 1. CrewAI A2A Service
   - type: web
     name: supplychain-crewai-service
-    env: python
+    runtime: python
     region: oregon
     plan: free
     buildCommand: pip install uv && uv pip install --python "$(which python)" -e packages/contracts -r requirements.txt
@@ -30,7 +30,7 @@ services:
   # 2. FastAPI Backend & ADK Orchestrator
   - type: web
     name: supplychain-backend
-    env: python
+    runtime: python
     region: oregon
     plan: free
     buildCommand: pip install uv && uv pip install --python "$(which python)" -e packages/contracts -r requirements.txt

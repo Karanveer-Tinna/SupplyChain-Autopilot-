@@ -53,12 +53,13 @@ services:
         sync: false
 
   # 3. React 18 Frontend Management Dashboard
-  - type: web
+  - type: static
     name: supplychain-frontend
-    runtime: static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: ./frontend/dist
     envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
       - key: VITE_API_BASE_URL
         fromService:
           name: supplychain-backend
