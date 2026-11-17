@@ -24,9 +24,13 @@ from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 from sqlalchemy.types import JSON, TypeDecorator
 
 # Detect database URL from environment or default to local sqlite
+# Render provides "postgres://" scheme; SQLAlchemy 2.0 requires "postgresql+psycopg2://"
+# to avoid auto-selecting psycopg3 when only psycopg2-binary is installed.
 raw_db_url = os.getenv("DATABASE_URL", "sqlite:///./supplychain.db").strip()
 if raw_db_url.startswith("postgres://"):
-    raw_db_url = raw_db_url.replace("postgres://", "postgresql://", 1)
+    raw_db_url = raw_db_url.replace("postgres://", "postgresql+psycopg2://", 1)
+elif raw_db_url.startswith("postgresql://") and "+psycopg2" not in raw_db_url:
+    raw_db_url = raw_db_url.replace("postgresql://", "postgresql+psycopg2://", 1)
 DATABASE_URL = raw_db_url
 
 # Cross-platform JSON type: uses JSONB on postgres, standard JSON on sqlite
@@ -187,7 +191,9 @@ class BenchmarkRun(Base):
 def get_engine(db_url: Optional[str] = None):
     url = (db_url or DATABASE_URL).strip()
     if url.startswith("postgres://"):
-        url = url.replace("postgres://", "postgresql://", 1)
+        url = url.replace("postgres://", "postgresql+psycopg2://", 1)
+    elif url.startswith("postgresql://") and "+psycopg2" not in url:
+        url = url.replace("postgresql://", "postgresql+psycopg2://", 1)
     connect_args = {"check_same_thread": False} if url.startswith("sqlite") else {}
     return create_engine(url, connect_args=connect_args)
 
